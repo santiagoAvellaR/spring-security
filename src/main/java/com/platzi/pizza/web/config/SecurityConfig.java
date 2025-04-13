@@ -23,6 +23,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/pizzas/**").hasRole("ADMIN")
                 // don't allow put method in all the project
                 .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                .requestMatchers("/api/orders/random").hasAnyAuthority("random_order")
                 .requestMatchers("/api/orders/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
