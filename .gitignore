@@ -47,3 +47,6 @@ Thumbs.db
 
 # Carpeta local de Maven (si por alguna razón está usada)
 .mvn/
+
+# Archivos de base de datos
+mysql-data/
