@@ -23,9 +23,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 // un "*" is a wildcard that allows all paths and all controllers in the first level
                 // dos "**" is a wildcard that allows all paths and all controllers in all the levels
-                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/pizzas/**").hasAnyRole("ADMIN", "CUSTOMER")
+                .requestMatchers(HttpMethod.POST, "/api/pizzas/**").hasRole("ADMIN")
                 // don't allow put method in all the project
-                .requestMatchers(HttpMethod.PUT).denyAll()
+                .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                .requestMatchers("/api/orders/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -41,7 +43,13 @@ public class SecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin);
+        UserDetails customer = User.builder()
+                .username("customer")
+                .password(passwordEncoder().encode("customer123"))
+                .roles("CUSTOMER")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, customer);
     }
 
     @Bean
