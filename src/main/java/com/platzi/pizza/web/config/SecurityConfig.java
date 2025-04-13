@@ -2,6 +2,7 @@ package com.platzi.pizza.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -14,6 +15,11 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().and()
                 .authorizeHttpRequests()
+                // un "*" is a wildcard that allows all paths and all controllers in the first level
+                // dos "**" is a wildcard that allows all paths and all controllers in all the levels
+                .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                // don't allow put method in all the project
+                .requestMatchers(HttpMethod.PUT).denyAll()
                 .anyRequest()
                 .authenticated()
                 .and()
