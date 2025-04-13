@@ -13,7 +13,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests()
                 .anyRequest()
-                .permitAll();
+                .authenticated()
+                .and()
+                .httpBasic();
         return http.build();
     }
 }
