@@ -1,0 +1,49 @@
+# Archivos de construcción
+/build/
+/.gradle/
+/out/
+
+# Archivos de configuración de IntelliJ IDEA
+.idea/
+/*.iml
+
+# Archivos de configuración de Eclipse (si alguien lo usa)
+*.classpath
+*.project
+*.settings/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de log
+*.log
+
+# Archivos de entorno o configuración sensible
+.env
+*.env
+
+# Archivos generados por tests o cobertura
+/test-results/
+*/test-output/
+*.exec
+*.coverage
+
+# Archivos temporales
+*.tmp
+*.swp
+*.bak
+*.orig
+
+# Configuración del wrapper de Gradle (¡estos sí se versionan!)
+# ¡NO ignores estos!
+# gradle/wrapper/gradle-wrapper.jar
+# gradle/wrapper/gradle-wrapper.properties
+# gradlew
+# gradlew.bat
+
+# Carpeta de caché de VSCode (si usas VSCode)
+.vscode/
+
+# Carpeta local de Maven (si por alguna razón está usada)
+.mvn/
