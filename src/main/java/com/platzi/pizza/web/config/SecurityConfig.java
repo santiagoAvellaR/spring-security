@@ -1,8 +1,11 @@
 package com.platzi.pizza.web.config;
 
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,6 +22,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().and()
                 .authorizeHttpRequests()
+                .requestMatchers("/api/auth/login").permitAll()
                 // un "*" is a wildcard that allows all paths and all controllers in the first level
                 // dos "**" is a wildcard that allows all paths and all controllers in all the levels
                 .requestMatchers("/api/customers/**").hasAnyRole("ADMIN", "CUSTOMER")
@@ -33,6 +37,11 @@ public class SecurityConfig {
                 .and()
                 .httpBasic();
         return http.build();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
     @Bean
